@@ -1,9 +1,9 @@
 # Osmosis Dynamic Incentives primitive
 
-HackWasm Medellin 2022 project
-Osmosis Challenge 
-DeFi Primitive
-
+HackWasm Medellin 2022 project -  
+Osmosis Challenge -  
+DeFi Primitive -  
+  
 ## Abstract
 
 Osmosis standard Incentives module provides a general method to give rewards to stakers. 
