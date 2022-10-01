@@ -12,17 +12,18 @@ The yield to be given to stakers are stored in a gauge and it is distributed on 
 
 There are two kinds of gauges:
 
--Non perpetual gauge get removed from active queue after the the distribution period finish 
--Perpetual gauge  distribute all the tokens at a single time and somewhere else put the tokens regularly to distribute the tokens
+* Non perpetual gauge get removed from active queue after the the distribution period finish 
+* Perpetual gauge  distribute all the tokens at a single time and somewhere else put the tokens regularly to distribute the tokens
 
-We want to create a CosmWasm Smart contract that replenish the (Perpetual) Gauge on a daily base according to several dynamic market conditions.
+We want to create a CosmWasm Smart contract that replenish the (Perpetual ?) Gauge on a daily base according to several dynamic market conditions.
 
 This module objective is to foster price and liquidity size over time with dynamic incentives.
 
-On our fist version we are allocating 3 kind of incentives:
+On our fist version we are allocating 2 kind of incentives:
 
 * LP Base incentive 
 * LP Size Bonus incentive
+* Price bonus incentive (later if possibile) 
 
 ## Base incentive
 
