@@ -33,4 +33,3 @@ This is the basic yield and does not dynamically change . It provides the core A
 
 This yield dynamically changes according to the LP Size. Extra Bonus Incentives are automatically added if LP size decreases. This bonus should  motivate people to buy tokens and add a LP
 
-@blascokoa
