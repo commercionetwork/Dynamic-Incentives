@@ -23,7 +23,7 @@ On our fist version we are allocating 2 kind of incentives:
 
 * LP Base incentive 
 * LP Size Bonus incentive
-* Price bonus incentive (later if possibile) 
+
 
 ## Base incentive
 
