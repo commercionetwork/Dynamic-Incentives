@@ -39,7 +39,7 @@ This yield dynamically changes according to the LP Size. Extra Bonus Incentives 
 ##  Diagram and Presentation (@blascokoa)
 
 Slides:
-https://docs.google.com/presentation/d/1GucvzxHMH-IvKK76JeRNiP2X0peonvyuvmM5AUJ1jrw/edit?usp=sharing
+https://docs.google.com/presentation/d/1vrJRK5cVkdpKIXxroPFKocLJfBbCE_3Jz2u9iydvBxg/edit?usp=sharing
 
 Diagrams:
 https://miro.com/app/board/uXjVPRDHgTU=/?share_link_id=797989476878
