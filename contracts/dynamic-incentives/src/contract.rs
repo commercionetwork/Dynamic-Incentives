@@ -1,10 +1,10 @@
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
-use cosmwasm_std::{Binary, Deps, DepsMut, Env, MessageInfo, Reply, Response, StdResult};
+use cosmwasm_std::{to_binary, Binary, Deps, DepsMut, Env, MessageInfo, Reply, Response, StdResult, Coin};
 use cw2::set_contract_version;
 
 use crate::error::ContractError;
-use crate::msg::{ExecuteMsg, InstantiateMsg, MigrateMsg, QueryMsg};
+use crate::msg::{ExecuteMsg, InstantiateMsg, QueryMsg, Condition, GetOwnerResponse, InfoResponse, GetOsmoBaseRewardResponse};
 
 // version info for migration info
 const CONTRACT_NAME: &str = "crates.io:dynamic-incentives";
@@ -27,47 +27,75 @@ pub fn instantiate(
         .add_attribute("owner", info.sender))
 }
 
-/// Handling contract migration
-/// To make a contract migratable, you need
-/// - this entry_point implemented
-/// - only contract admin can migrate, so admin has to be set at contract initiation time
-/// Handling contract execution
-#[cfg_attr(not(feature = "library"), entry_point)]
-pub fn migrate(_deps: DepsMut, _env: Env, msg: MigrateMsg) -> Result<Response, ContractError> {
-    match msg {
-        // Find matched incoming message variant and execute them with your custom logic.
-        //
-        // With `Response` type, it is possible to dispatch message to invoke external logic.
-        // See: https://github.com/CosmWasm/cosmwasm/blob/main/SEMANTICS.md#dispatching-messages
-    }
-}
-
 /// Handling contract execution
 #[cfg_attr(not(feature = "library"), entry_point)]
 pub fn execute(
-    _deps: DepsMut,
-    _env: Env,
-    _info: MessageInfo,
+    deps: DepsMut,
+    env: Env,
+    info: MessageInfo,
     msg: ExecuteMsg,
 ) -> Result<Response, ContractError> {
     match msg {
-        // Find matched incoming message variant and execute them with your custom logic.
-        //
-        // With `Response` type, it is possible to dispatch message to invoke external logic.
-        // See: https://github.com/CosmWasm/cosmwasm/blob/main/SEMANTICS.md#dispatching-messages
+        ExecuteMsg::AddToGauge { 
+            gauge_id, 
+            add_to_pool_amount, 
+            condition 
+        } => add_to_gauge(deps, info, env, gauge_id, add_to_pool_amount, condition),
+        ExecuteMsg::UpdateOsmoBaseReward { new_base_reward } => update_base_reward(deps, info, new_base_reward),
+        ExecuteMsg::UpdateOwnerAddr { addr } => update_owner_addr(deps, info, addr),
     }
+}
+
+pub fn add_to_gauge(
+    deps: DepsMut,
+    info: MessageInfo,
+    env: Env,
+    gauge_id: u64,
+    add_to_pool_amount: Coin,
+    condition: Condition,
+) -> Result<Response, ContractError> {
+
+    Ok(Response::new())
+}
+
+pub fn update_base_reward(
+    deps: DepsMut,
+    info: MessageInfo,
+    new_base_reward: Coin,
+) -> Result<Response, ContractError> {
+
+    Ok(Response::new())
+}
+
+pub fn update_owner_addr(
+    deps: DepsMut,
+    info: MessageInfo,
+    addr: String,
+) -> Result<Response, ContractError> {
+
+    Ok(Response::new())
 }
 
 /// Handling contract query
 #[cfg_attr(not(feature = "library"), entry_point)]
-pub fn query(_deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
+pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     match msg {
-        // Find matched incoming message variant and query them your custom logic
-        // and then construct your query response with the type usually defined
-        // `msg.rs` alongside with the query message itself.
-        //
-        // use `cosmwasm_std::to_binary` to serialize query response to json binary.
+        QueryMsg::Info {} => to_binary(&query_info(deps)?),
+        QueryMsg::GetOwner {} => to_binary(&query_owner(deps)?),
+        QueryMsg::GetOsmoBaseReward {} => to_binary(&query_osmo_base_reward(deps)?),
     }
+}
+
+pub fn query_info(deps: Deps) -> StdResult<InfoResponse> {
+    Ok(InfoResponse{})
+}
+
+pub fn query_owner(deps: Deps) -> StdResult<GetOwnerResponse> {
+    Ok(GetOwnerResponse { owner: String::new()})
+}
+
+pub fn query_osmo_base_reward(deps: Deps) -> StdResult<GetOsmoBaseRewardResponse> {
+    Ok(GetOsmoBaseRewardResponse{})
 }
 
 /// Handling submessage reply.
