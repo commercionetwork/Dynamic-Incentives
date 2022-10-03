@@ -3,10 +3,11 @@ use std::fmt::Debug;
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
-    to_binary, to_vec, Binary, ContractResult, Deps, DepsMut, Empty, Env, MessageInfo, Reply,
+    coins, to_binary, to_vec, Binary, ContractResult, Deps, DepsMut, Empty, Env, MessageInfo, Reply,
     Response, StdError, StdResult, SystemResult,
 };
 use cw2::set_contract_version;
+use osmosis_std::types::osmosis::incentives::MsgAddToGauge;
 use osmosis_std::types::osmosis::epochs::v1beta1::{
     QueryEpochsInfoRequest, QueryEpochsInfoResponse,
 };
@@ -36,9 +37,9 @@ pub fn instantiate(
     set_contract_version(deps.storage, CONTRACT_NAME, CONTRACT_VERSION)?;
 
     DEBUG.save(deps.storage, &msg.debug)?;
+    
 
-    // With `Response` type, it is possible to dispatch message to invoke external logic.
-    // See: https://github.com/CosmWasm/cosmwasm/blob/main/SEMANTICS.md#dispatching-messages
+
     Ok(Response::new()
         .add_attribute("method", "instantiate")
         .add_attribute("owner", info.sender))
@@ -54,10 +55,11 @@ pub fn execute(
     msg: ExecuteMsg,
 ) -> Result<Response, ContractError> {
     match msg {
-        // Find matched incoming message variant and execute them with your custom logic.
-        //
-        // With `Response` type, it is possible to dispatch message to invoke external logic.
-        // See: https://github.com/CosmWasm/cosmwasm/blob/main/SEMANTICS.md#dispatching-messages
+        ExecuteMsg::IncrementGauge {
+            gauge_id,
+            condition,
+            coins,
+        } => increment_gauge(deps, info, gauge_id, condition, coins),
     }
 }
 

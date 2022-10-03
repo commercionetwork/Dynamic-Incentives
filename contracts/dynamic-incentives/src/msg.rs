@@ -7,12 +7,27 @@ pub use osmosis_std::types::osmosis::gamm::v1beta1::{
 /// Message type for `instantiate` entry_point
 #[cw_serde]
 pub struct InstantiateMsg {
-    pub debug: bool,
+    /// Owner of gauges
+    pub owner: String,
+    /// Base amount gauge 
+    pub base_amount: String,
 }
 
 /// Message type for `execute` entry_point
 #[cw_serde]
-pub enum ExecuteMsg {}
+pub enum ExecuteMsg {
+    IncrementGauge {
+        gauge_id: String,
+        condition: String,
+        coins: String,
+    },
+    SetBase {
+        base_amount: String,
+    },
+    SetOwner {
+        owner: String,
+    },
+}
 
 /// Message type for `query` entry_point
 #[cw_serde]
