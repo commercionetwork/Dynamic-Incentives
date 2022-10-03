@@ -19,3 +19,14 @@ Cargo.lock
 
 # Ignores local beaker state
 **/state.local.json
+
+# vscode config
+.vscode
+node_modules
+.DS_Store
+
+# intellij
+.idea
+
+# Ignores local beaker state
+**/state.local.json
