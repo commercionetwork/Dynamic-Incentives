@@ -19,7 +19,7 @@ We want to create a CosmWasm Smart contract that replenish the Perpetual Gauge o
 
 This module objective is to foster price and liquidity size over time with dynamic incentives.
 
-On our fist version we are allocating 2 kind of incentives:
+On our first version we are allocating 2 kind of incentives:
 
 * LP Base incentive 
 * LP Size Bonus incentive
