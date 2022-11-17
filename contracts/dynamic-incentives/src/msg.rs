@@ -1,5 +1,6 @@
 use cosmwasm_std::Coin;
 use cosmwasm_schema::{cw_serde, QueryResponses};
+use osmosis_std::types::cosmos::base::v1beta1::Coin as CosmosCoin;
 
 /// Message type for `instantiate` entry_point
 #[cw_serde]
@@ -13,8 +14,8 @@ pub struct InstantiateMsg {
 pub enum ExecuteMsg {
     AddToGauge{
         gauge_id: u64,
-        add_to_pool_amount: Coin,
-        condition: Condition,
+        owner: String,
+        reward_amount: Vec<CosmosCoin>,
     },
     UpdateOsmoBaseReward{
         new_base_reward: Coin,
@@ -23,10 +24,10 @@ pub enum ExecuteMsg {
         addr: String,
     },
 }
-
+/*
 #[cw_serde]
 pub struct Condition{
-}
+}*/
 
 /// Message type for `query` entry_point
 #[cw_serde]
@@ -34,8 +35,10 @@ pub struct Condition{
 pub enum QueryMsg {
     #[returns(InfoResponse)]
     Info {},
+
     #[returns(GetOwnerResponse)]
     GetOwner {},
+    
     #[returns(GetOsmoBaseRewardResponse)]
     GetOsmoBaseReward {},
 }
