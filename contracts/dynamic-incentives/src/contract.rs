@@ -1,6 +1,6 @@
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
-use cosmwasm_std::{to_binary, Binary, CosmosMsg, Deps, DepsMut, Env, MessageInfo, Reply, Response, StdResult, Coin};
+use cosmwasm_std::{to_binary, Binary, Deps, DepsMut, Env, MessageInfo, Reply, Response, StdResult, Coin, SubMsg, CosmosMsg};
 use cw2::set_contract_version;
 use osmosis_std::types::osmosis::incentives::{MsgAddToGauge};
 use osmosis_std::types::cosmos::base::v1beta1::Coin as CosmosCoin;
@@ -12,6 +12,7 @@ use crate::state::{OWNER, OSMO_BASE_REWARD};
 // version info for migration info
 const CONTRACT_NAME: &str = "crates.io:dynamic-incentives";
 const CONTRACT_VERSION: &str = env!("CARGO_PKG_VERSION");
+const ADD_TO_GAUGE_REPLY_ID: u64 = 1u64;
 
 /// Handling contract instantiation
 #[cfg_attr(not(feature = "library"), entry_point)]
@@ -61,15 +62,16 @@ pub fn add_to_gauge(
     reward_amount: Vec<CosmosCoin>,
 ) -> Result<Response, ContractError> {
     
-    let msg_add_to_gauge : CosmosMsg = MsgAddToGauge {
+    let msg_add_to_gauge : MsgAddToGauge = MsgAddToGauge {
             owner,
             gauge_id,
             rewards: reward_amount,
-    }.into();
+    };
 
     Ok(Response::new()
-        .add_message(msg_add_to_gauge)
+        //.add_message(msg_add_to_gauge)
         .add_attribute("method", "add_to_gauge")    
+        .add_submessage(SubMsg::reply_on_success(add_to_gauge, ADD_TO_GAUGE_REPLY_ID))
     )
 }
 
