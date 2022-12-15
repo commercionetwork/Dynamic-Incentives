@@ -16,6 +16,12 @@ make localnet-start
 ```
 Se i comandi falliscono per `permission denied` al docker, è sufficiente eseguire con `sudo`.
 
+#### Avvio della chain con state
+```bash
+make localnet-start-with-state
+```
+
+Questo comando permette di avviare la chain con un certo stato iniziale. In generale vengono definiti 3 pools nel modulo `Gamm` e per ognuno dei quali vengono creati 3 gauges, uno per ogni duration.
 ### Fermare la chain conservando lo stato attuale
 ```bash
 make localnet-stop
