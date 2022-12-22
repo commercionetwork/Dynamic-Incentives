@@ -48,7 +48,7 @@ cw2 = "0.13.2"
 schemars = "0.8.8"
 serde = { version = "1.0.137", default-features = false, features = ["derive"] }
 thiserror = { version = "1.0.31" }
-osmosis-std = {git = "https://github.com/osmosis-labs/osmosis-rust", branch = "osmosis-v12-rc2"}
+osmosis-std = {git = "https://github.com/osmosis-labs/osmosis-rust", branch = "autobuild-v12.x"}
 
 [dev-dependencies]
 cw-multi-test = "0.13.2"
